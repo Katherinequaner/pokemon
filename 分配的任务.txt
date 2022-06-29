@@ -1,0 +1,3 @@
+输出UI：
+在FightMechanism这写
+在SpiritRoot这写

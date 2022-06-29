@@ -1,0 +1,122 @@
+package com.jlgame.player;
+import org.omg.CORBA.WStringSeqHelper;
+
+import java.util.Scanner;
+
+public class GameMechanism {
+    private int x;
+    private int y;
+    private int m;
+    private int n;
+    private int o;
+    private String art0,art1,art2,art3,art4;
+
+    public static void main(String[] args) {
+            GameMechanism s = new GameMechanism();
+            s.art();
+            s.playOp();
+            s.playOP1();
+            s.playOP2();
+            s.playOP3();
+            s.playOp4();
+    }
+    public void art(){
+        art0 = "可口可乐";
+        art1 = "雪碧";
+        art2 = "百事可乐";
+        art3 = "冰糖雪梨";
+    }
+        public void playOp () {
+            Scanner a = new Scanner(System.in);
+            System.out.println("请输入我方精灵的攻击力和血量");
+            int x = a.nextInt();
+            int y = a.nextInt();
+            System.out.println("请输入敌方精灵的攻击力和血量");
+            int m = a.nextInt();
+            int n = a.nextInt();
+            System.out.println("~~~~~~         |     ~~~~~~");
+            System.out.println("当前精灵的状态：        |对方精灵的状态：      ");
+            System.out.println("攻击力:" + x + " 血量:" + y + "    |攻击力:" + m + "  血量:" + n + "");
+            System.out.println("~~~~~~         |     ~~~~~~");
+        }
+        public void playOP1 () {
+            String string = "";
+            System.out.println("~~~~~~我方的回合：~~~~~~");
+            System.out.println("~~~~~~");
+            System.out.println("请选择你想要使用的技能：");
+            System.out.println("[0]"+ art0 +"," + "[1]" +art1);
+            System.out.println("[2]"+ art2 +"," + "[3]" +art3);
+            System.out.println("~~~~~~~~~~~~~~~~~~~");
+            Scanner a = new Scanner(System.in);
+            int c = a.nextInt();
+            switch (c) {
+                case 0:
+                    o=0;
+                    break;
+                case 1:
+                    o=1;
+                    break;
+                case 2:
+                    o=2;
+                    break;
+                case 3:
+                    o=3;
+                    break;
+                default:
+                    System.out.println("输入错误");
+                    break;
+            }
+        }
+        public void playOP2 () {
+
+            String elf = "周星驰";
+            String skill = "xxx";
+            switch (o) {
+                case 0:
+                    skill=art0;
+                    break;
+                case 1:
+                    skill=art1;
+                    break;
+                case 2:
+                    skill=art2;
+                    break;
+                case 3:
+                    skill=art3;
+                    break;
+            }
+            System.out.println("~~~~~~战斗提示：~~~~~~");
+            System.out.println("我方" + elf + "使用了" + skill + "!!!");
+            System.out.println("~~~~~~~~~~~~~~~~~~~");
+        }
+        public void playOP3 () {
+            String elf = "xxx";
+            String skill = "xxx";
+            System.out.println("~~~~~~战斗提示：~~~~~~");
+            System.out.println("方对" + elf + "使用了" + skill + "!!!");
+            System.out.println("~~~~~~~~~~~~~~~~~~~");
+        }
+        public void playOp4 () {
+            System.out.println("~~~~~~精灵选择：~~~~~~");
+            System.out.println("请选择你要出战的精灵：");
+            System.out.println("[0] xxx  等级：xxx 属性：xxx 攻击力：xxx 血量：xxx"
+                    + "\t[1] xxx  等级：xxx 属性：xxx 攻击力：xxx 血量：xxx" +
+                    "\t[2] xxx  等级：xxx 属性：xxx 攻击力：xxx 血量：xxx" +
+                    "\t[3] xxx  等级：xxx 属性：xxx 攻击力：xxx 血量：xxx");
+            Scanner a = new Scanner(System.in);
+            int d = a.nextInt();
+            switch (d) {
+                case 0:
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 4:
+                    break;
+                default:
+                    System.out.println("输入错误");
+                    break;
+            }
+        }
+    }

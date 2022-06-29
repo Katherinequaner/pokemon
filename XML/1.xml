@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Players>
+<PlayerName>xiaobizaizhi</PlayerName>
+<PlayerNum>1</PlayerNum>
+<playerMoney>1</PlayerNum>
+
+<SpiritNums>
+ 	<Spirit sn="1">
+        		<name>小火龙</name>
+        		<grade>等级xxx</grade>
+        		<blood>血量xxx</blood>
+		<attackPower>攻击力xxx</attackPower>
+    	</Spirit>
+    	<Spirit sn="2">
+        		<name>小火龙</name>
+        		<grade>等级xxx</grade>
+        		<blood>血量xxx</blood>
+		<attackPower>攻击力xxx</attackPower>
+    	</Spirit>
+</SpiritNums>
+
+</Players>
+
