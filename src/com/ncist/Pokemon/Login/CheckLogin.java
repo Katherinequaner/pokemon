@@ -6,6 +6,7 @@ import java.util.Scanner;
 import com.ncist.Pokemon.Main.*;
 
 import com.ncist.Pokemon.Dbs.DbsConnect;
+import com.ncist.Pokemon.PlayerInfo.ShowInfo;
 
 import static com.ncist.Pokemon.Main.Main.useraccount;
 
@@ -20,12 +21,17 @@ public class CheckLogin {
 
         System.out.println(String.format("自动分配账号：\n您的账号为：{%d}\n请输入您的密码：(最多10位)", user));
         String pass = input.next();
-        while (pass == null) {
-            System.out.println("输入的账号不允许为空！请重新输入！");
-            pass = input.next();
-        }
+        System.out.println("请输入您的游戏昵称:(最多16位)");
+        String playerName = input.next();
+
         //将账号和密码存入数据库
-        DbsConnect.account_save(user, pass);
+        DbsConnect.account_save(user, pass,playerName);
+
+        //四个精灵选一个作为初始精灵 (待完成)
+
+        //将个人信息存入个人的xml文件中
+        ShowInfo.save_info_Xml("D:\\Coding\\C\\Pokemon\\XML\\"+user+".xml", playerName, String.valueOf(user), "100", String.valueOf(1),"1", "妙蛙种子", "Bulbasaur","1", "300", "17");
+
     }
 
     //检查账号是否正常
@@ -37,7 +43,7 @@ public class CheckLogin {
             System.out.println("请输入你的账号密码：");
             String pass = input.next();
 
-            //数据库代码，将账号和密码和数据库中的密码比对 (待完工)
+            //数据库代码，将账号和密码和数据库中的密码比对
             int i = DbsConnect.check_pass(user, pass);
             if (i == 1) {
                 useraccount = user;

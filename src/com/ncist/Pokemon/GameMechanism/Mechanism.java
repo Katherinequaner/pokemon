@@ -2,9 +2,12 @@
 package com.ncist.Pokemon.GameMechanism;
 
 
+import org.dom4j.DocumentException;
+
 public class Mechanism {
-    public static void mechanism() {
+    public static void mechanism() throws DocumentException {
         //回合战斗机制
         FightMechanism.Round_system();
+
     }
 }

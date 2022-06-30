@@ -2,106 +2,76 @@ package com.ncist.Pokemon.Test;
 
 
 import org.dom4j.Document;
-import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
-//import org.junit.Test;
+import org.dom4j.io.OutputFormat;
+import org.dom4j.io.XMLWriter;
 
-import java.io.File;
-import java.util.List;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 
- class test {
-    private String sn;
-    private String name;
-    private String author;
-    private Double price;
-
-    public test() {
-    }
-
-
-    public   test(String sn, String name, String author, Double price) {
-        this.sn = sn;
-        this.name = name;
-        this.author = author;
-        this.price = price;
-    }
-
-    public String getSn() {
-        return sn;
-    }
-
-    public void setSn(String sn) {
-        this.sn = sn;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    @Override
-    public String toString() {
-        return "Book{" +
-                "sn='" + sn + '\'' +
-                ", name='" + name + '\'' +
-                ", author='" + author + '\'' +
-                ", price=" + price +
-                '}';
-    }
-}
-
-
-/**
- * @PackageName: pers.xiqingbo.pojo
- * @ClassName: Dom4jTest
- * @Description: 使用dom4j解析xml文档并遍历xml节点
- * @Author: Schieber
- * @Date: 2021/1/13 上午 7:45
- */
 public class Test_test {
-   // @Test
-    public static void read() throws DocumentException {
-        // 创建SAXReader实例
-        SAXReader reader = new SAXReader();
-        // read()读取指定的XML文档并形成DOM树
-        Document document = reader.read(new File("D:\\Coding\\C\\Pokemon\\1.xml"));
-        // getRootElement()获取根节点
-        Element rootEle = document.getRootElement();
-        // elements()获取根节点的子节点
-        List<Element> bookEles = rootEle.elements();
-        // 遍历子节点
-        for (Element book : bookEles
-        ) {
-            // element()获取子节点指定的子元素
-            Element nameElement = book.element("name");
-            // getText()获取子元素的文本内容
-            String nameText = nameElement.getText();
-            // elementText()直接获取元素的文本内容
-            String authorText = book.elementText("author");
-            String priceText = book.elementText("price");
-            // attributeValue()直接获取元素的属性值
-            String snValue = book.attributeValue("sn");
-            System.out.println(new test(snValue, nameText, authorText, Double.parseDouble(priceText)));
-        }
+
+    public static void main(String[] args) {
+        save_info_Xml("D:\\Coding\\C\\Pokemon\\XML\\test.xml", "毕载小子", "1", "100", "1", "妙蛙种子", "1", "300", "17");
     }
+
+    public static void save_info_Xml(String path, String PlayerNameText, String PlayerNumText, String PlayerMoneyText, String spiritNum, String nameText, String gradeText, String bloodText, String attackPowerText) {
+//        Document：表示xml文档信息，是一个树形结构。
+//        Eelment：表示xml文件的元素节点，主要是提供一些元素的操作方法。
+//        Attribute：表示元素结点中的属性，可以自定义。
+
+        Document document = DocumentHelper.createDocument();
+        //创建根元素
+        Element root = document.addElement("Players");
+
+        //创建子元素
+        Element PlayerName = root.addElement("PlayerName");
+        String PlayerNameText1 = PlayerNameText;
+        PlayerName.setText(PlayerNameText1);
+        Element PlayerNum = root.addElement("PlayerNum");
+        String PlayerNumText1 = PlayerNumText;
+        PlayerNum.setText(PlayerNumText1);
+        Element PlayerMoney = root.addElement("PlayerMoney");
+        String PlayerMoneyText1 = PlayerMoneyText;
+        PlayerMoney.setText(PlayerMoneyText1);
+        Element SpiritNums = root.addElement("SpiritNums");
+
+
+        Element Spirit = SpiritNums.addElement("Spirit");
+        Element SpiritElement = Spirit.addAttribute("sn", spiritNum);
+
+        Element name = SpiritElement.addElement("name");
+        name.setText(nameText);
+        Element grade = SpiritElement.addElement("grade");
+        grade.setText(gradeText);
+        Element blood = SpiritElement.addElement("blood");
+        blood.setText(bloodText);
+        Element attackPower = SpiritElement.addElement("attackPower");
+        attackPower.setText(attackPowerText);
+
+
+        OutputFormat format = OutputFormat.createPrettyPrint();
+        //设置xml文档的编码为utf-8
+        format.setEncoding("utf-8");
+        Writer out;
+        try {
+            //创建一个输出流对象
+            out = new FileWriter(path);
+            //创建一个dom4j创建xml的对象
+            XMLWriter writer = new XMLWriter(out, format);
+            //调用write方法将doc文档写到指定路径
+            writer.write(document);
+            writer.close();
+            System.out.print("生成XML文件成功");
+        } catch (IOException e) {
+            System.out.print("生成XML文件失败");
+            e.printStackTrace();
+        }
+
+    }
+
 }
+
+

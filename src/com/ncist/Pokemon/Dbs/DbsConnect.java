@@ -16,9 +16,7 @@ public class DbsConnect {
     static Connection conn = null;
     static Statement stmt = null;
 
-    //connect_main
-    //main
-    //String[] args
+    //连接数据库的代码，任何操作数据库的代码都必须先调用该函数
     public static void connect_main() {
         try {
             // 注册 JDBC 驱动
@@ -28,31 +26,39 @@ public class DbsConnect {
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
         } catch (SQLException se) {
             // 处理 JDBC 错误
-            se.printStackTrace();
+            System.out.println("请先启动数据库！");
         } catch (Exception e) {
             // 处理 Class.forName 错误
-            e.printStackTrace();
+            System.out.println("请先启动数据库！");
         }
     }
 
-    //展示玩家相关信息,比如玩家的游戏昵称，玩家等级，所拥有的精灵编号，所拥有的精灵编号对应的精灵等级 (待实现)
-    public static void show_play_info(int user) throws SQLException {
-        //必须连接数据库先：
+    //查询要召唤的精灵      返回值：精灵的名字
+    public static String select_called_spirit(int spiritNum){
         DbsConnect.connect_main();
         try {
             //实例化Statement对象
             stmt = conn.createStatement();
 
             String sql;
-            sql = String.format("select SpiritNum, playMoney ,hasSpiritGrade from Players where PlayerNum  = %d", user);
-            ResultSet rs = stmt.executeQuery(sql);
+//            sql = String.format("select Passwd from user where UserAccount = %d", user);
+  //          ResultSet rs = stmt.executeQuery(sql);
+            int flag = 0;
 
-            if(rs.next()){
-                int SpiritNum = rs.getInt("SpiritNum");
-                int playMoney = rs.getInt("playMoney");
-                int hasSpiritGrade = rs.getInt("hasSpiritGrade");
-                System.out.println(String.format("~~~~~~玩家信息：~~~~~~\n所拥有的精灵编号：%s\t所拥有的金币数量：%s\n所拥有的精灵等级：%s",SpiritNum,playMoney,hasSpiritGrade));
-            }
+//            if (rs.next()) {
+//                if (pass.equals(rs.getString("Passwd")) != true) {
+//                    System.out.println("密码错误！请重新输入！");
+//                    flag = 1;
+//                }
+//                if (flag == 1) {
+//                    return 0;
+//                }
+//            } else {
+//                return 0;
+//            }
+            System.out.println("密码正确！开始游玩吧");
+
+     //       return 1;
         } catch (SQLException se) {
             // 处理 JDBC 错误
             System.out.println("未知错误1！");
@@ -61,9 +67,11 @@ public class DbsConnect {
             // 处理 Class.forName 错误
             System.out.println("未知错误2！");
         } finally {
-            stmt.close();
-            conn.close();
+//            stmt.close();
+//            conn.close();
         }
+   //     return 0;
+        return "";
     }
 
     //验证账号和密码是否正确,返回0则密码错误，返回1则密码正确
@@ -87,9 +95,7 @@ public class DbsConnect {
                 if (flag == 1) {
                     return 0;
                 }
-            }
-            else
-            {
+            } else {
                 return 0;
             }
             System.out.println("密码正确！开始游玩吧");
@@ -110,23 +116,24 @@ public class DbsConnect {
     }
 
     //存储用户的账号的密码
-    public static void account_save(int user, String pass) throws SQLException {
+    public static void account_save(int user, String pass, String playerName) throws SQLException {
         //必须连接数据库先：
         DbsConnect.connect_main();
         try {
             //实例化Statement对象
             stmt = conn.createStatement();
             String sql;
-            //int ，char ，int
-            sql = String.format("INSERT INTO user VALUES (%d,'%s',%d);", user, pass, user);
+            //int ，char ，int , char
+            //可能遇到的问题：https://blog.csdn.net/dongyuguoai/article/details/81023073
+            sql = String.format("INSERT INTO user VALUES (%d,'%s',%d, '%s');", user, pass, user, playerName);
             int rs = stmt.executeUpdate(sql);
             System.out.println("成功创建账号！登录账号后开始游玩吧");
         } catch (SQLException se) {
-            // 处理 JDBC 错误
-            System.out.println("并没有成功创建账号！请重新注册，可能是密码设置的过长的缘故！");
+           // se.printStackTrace();
+            System.out.println("并没有成功创建账号！请重新注册，可能是密码/昵称设置的过长的缘故！");
         } catch (Exception e) {
-            // 处理 Class.forName 错误
-            System.out.println("并没有成功创建账号！请重新注册，可能是密码设置的过长的缘故！");
+           // e.printStackTrace();
+            System.out.println("并没有成功创建账号！请重新注册，可能是密码/昵称设置的过长的缘故！");
         } finally {
             stmt.close();
             conn.close();

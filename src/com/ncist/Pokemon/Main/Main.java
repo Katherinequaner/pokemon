@@ -52,7 +52,8 @@ public class Main {
                         System.out.println("查看人物信息前，请先登录账号！");
                         break;
                     }
-                    DbsConnect.show_play_info(useraccount);
+                    //输入：用户ID
+                    ShowInfo.main_for_showinfo(useraccount);
                     break;
                 case 4:
                     flag = CheckLogin.main_for_check(flag);
@@ -63,7 +64,7 @@ public class Main {
                     Mechanism.mechanism();
                     break;
                 case 5:
-                    Test_test.read();
+                    //Test_test.read();
                     break;
             }
 

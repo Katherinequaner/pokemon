@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <Players>
-  <PlayerName>xiaobizaiz</PlayerName>
+  <PlayerName>毕载小子</PlayerName>
   <PlayerNum>1</PlayerNum>
   <PlayerMoney>100</PlayerMoney>
-  <FightSpirit>
-    <Fight sn="1">1</Fight>
-  </FightSpirit>
   <SpiritNums>
-    <Spirit sn="1">
+    <Spirit sn="2">
       <name>妙蛙种子</name>
-      <english>Bulbasaur</english>
       <grade>1</grade>
       <blood>300</blood>
       <attackPower>17</attackPower>
